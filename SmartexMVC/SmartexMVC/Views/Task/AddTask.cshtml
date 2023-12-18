@@ -1,0 +1,72 @@
+﻿@model SmartexMVC.Models.TaskNewDTO
+
+
+@{
+    ViewBag.Title = "Index";
+}
+@*<table class="table table-bordered">
+    
+    <tbody>
+        @foreach (var PL in (ViewData["Prolist"] as List<ProjectDTO>))
+        {
+            <tr>
+                <td>@PL.ProjectID</td>
+                <td>@PL.ProjectName</td>
+                
+            </tr>
+
+        }
+    </tbody>
+</table>*@
+@using (Html.BeginForm("CreateTask", "Task", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>TaskDTO</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProjectID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.selectedValue, new SelectList(Model.projectlist, "Value", "Text"))
+                @*@Html.DropDownList("ProjectDropDown", ViewData["Prolist"] as IEnumerable<SelectListItem>)*@
+                @*@Html.DropDownList("ProjectID", (IEnumerable<SelectListItem>)ViewData["Prolist"], "Select Project")*@
+                @*@Html.ValidationMessageFor(model => model.ProjectID, "", new { @class = "text-danger" })*@
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Task, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Task, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.ValidationMessageFor(model => model.Task, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.InitiatedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.InitiatedBy, new { htmlAttributes = new { @class = "form-control" } })
+                @*@Html.ValidationMessageFor(model => model.InitiatedBy, "", new { @class = "text-danger" })*@
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create"  class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,77 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link href="~/css/style.css" rel="stylesheet" />
+    <title>Smartex</title>
+    <script>
+        function Login() {
+            if ($('#txtUsername').val() == '') {
+                alert('Please Enter your UserName.!');
+                $('#txtUsername').focus();
+                return;
+            }
+            if ($('#txtPassword').val() == '') {
+                alert('Please Enter your Password!');
+                $('#txtPassword').focus();
+                return;
+            }
+            var dataobject = {
+                UserName: $("#txtUsername").val(),
+                Password: $("#txtPassword").val()
+            };
+            $.ajax({
+                url: "/Home/LoginUser",
+                type: "POST",
+                contentType: false,
+                processData: false,
+                data: JSON.stringify(dataobject),
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (r)
+                {
+                    if (r.UserName != '')
+                    {
+                        //alert('Login Successful ! Redirecting to Welcome Page')
+                        window.location.href = '../Home/Welcome'
+                    }
+                    else
+                    {
+                        alert('Invalid User Name or Passwrod !!!');
+                        return;
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    alert('Please Check values Entered by you !!!');
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="wrapper fadeInDown">
+        <div id="formContent">
+            <div class="fadeIn first mt-10">
+                <h3>
+                    Login
+                </h3>
+            </div>
+            <input type="text" id="txtUsername" class="fadeIn second" name="login" placeholder="User Name">
+            <input type="text" id="txtPassword" class="fadeIn third" name="login" placeholder="Password">
+            <input type="button" onclick="Login();" class="fadeIn fourth" value="Log In">
+            <div id="formFooter">
+                <a class="underlineHover" href="#">Forgot Password?</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

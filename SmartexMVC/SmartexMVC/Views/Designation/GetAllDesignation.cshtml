@@ -1,0 +1,35 @@
+﻿@model IEnumerable<SmartexMVC.Models.Designation>
+
+<p>
+    @Html.ActionLink("Create New", "AddDesignation")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.DesigID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DesigName)
+        </th>
+       
+        
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.DesigID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DesigName)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Edit", "EditDesignationDetails", new {  id=item.DesigID }) |
+           
+            @Html.ActionLink("Delete", "DeleteDesignation", new {  id=item.DesigID  })
+        </td>
+    </tr>
+}
+
+</table>
